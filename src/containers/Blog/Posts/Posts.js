@@ -13,6 +13,7 @@ class Posts extends Component {
   }
 
   componentDidMount () {
+    console.log(this.props)
     // Happens asynchronously
     // const post = axios.get('https://jsonplaceholder.typicode.com/posts') wont work
     axios.get('/posts')

@@ -4,7 +4,7 @@ import { Route, Link } from 'react-router-dom';
 import NewPost from './NewPost/NewPost';
 import './Blog.css';
 
-// Using Link means we only rerender where its needed oppose to an <a> tag. 
+// Using Link means we only rerender where its needed oppose to an <a> tag.
 
 class Blog extends Component {
     render () {
@@ -25,7 +25,7 @@ class Blog extends Component {
               {/* <Route path="/" exact render={() => <h1>Home</h1>}/>
                <Route path="/" render={() => <h1>Home 2</h1>}/> */}
               <Route path="/" exact component={Posts} />
-              <Route path="/new-post" exact component={NewPost} />
+              <Route path="/new-post" component={NewPost} />
             </div>
         );
     }

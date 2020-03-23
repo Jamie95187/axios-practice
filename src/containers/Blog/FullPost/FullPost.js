@@ -9,8 +9,19 @@ class FullPost extends Component {
 
   componentDidMount() {
     console.log(this.props.match.params.id);
+    this.loadData();
+  }
+
+  // currently if we click on a post to get to '/posts/:id' and then click on another posts to reach the fullpost components
+  // its not getting rerendered onto the page. We need to add a new method to handle this. ComponenetDidMount isnt getting executed again
+
+  componentDidUpdate() {
+    this.loadData();
+  }
+
+  loadData() {
     if ( this.props.match.params.id ) {
-      if(!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.match.params.id)){
+      if(!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== +this.props.match.params.id)){
         axios.get('/posts/' + this.props.match.params.id)
           .then(response => {
             this.setState({loadedPost: response.data});
@@ -20,14 +31,14 @@ class FullPost extends Component {
   }
 
   deletePostHandler = () => {
-    axios.delete('/posts/' + this.props.id)
+    axios.delete('/posts/' + this.props.match.params.id)
       .then(response => {
         console.log(response)
       })
   }
     render () {
         let post = <p style={{textAlign: 'center'}}>Please select a Post!</p>;
-        if (this.props.id){
+        if (this.props.match.params.id){
           post = <p style={{textAlign: 'center'}}>Loading...!</p>;
         }
         if (this.state.loadedPost){

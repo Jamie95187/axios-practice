@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import Posts from './Posts/Posts';
 import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
-import NewPost from './NewPost/NewPost';
 import './Blog.css';
+// Want to import NewPost to load it dynamically only when its needed (Lazy Loading). Loaded when needed
+// import NewPost from './NewPost/NewPost';
+import asyncComponent from '../../hoc/asyncComponent';
+
+const AsyncNewPost = asyncComponent(() => {
+  // only importing this when './NewPost/NewPost' is needed
+  return import('./NewPost/NewPost');
+});
 
 // Using Link means we only rerender where its needed oppose to an <a> tag.
 // Use NavLink to style links (and active links to style only links that are active)
@@ -14,7 +21,7 @@ import './Blog.css';
 
 class Blog extends Component {
   state = {
-    auth: false
+    auth: true
   }
     render () {
         return (
@@ -45,7 +52,7 @@ class Blog extends Component {
               {/* <Route path="/" exact render={() => <h1>Home</h1>}/>
                <Route path="/" render={() => <h1>Home 2</h1>}/> */}
                <Switch>
-                {this.state.auth ? <Route path="/new-post" component={NewPost} /> : null}
+                {this.state.auth ? <Route path="/new-post" component={AsyncNewPost} /> : null}
                 <Route path="/posts" component={Posts} />
                 {/*This should catch all the unknown paths and render the not found message. Good to use to catch 404 error routes*/}
                 <Route render={() => <h1>Not found</h1>}/>

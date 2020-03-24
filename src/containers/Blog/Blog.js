@@ -6,6 +6,11 @@ import './Blog.css';
 // import NewPost from './NewPost/NewPost';
 import asyncComponent from '../../hoc/asyncComponent';
 
+// React 16.6.0 and above. User can use a lazy loader to render only when necessary. Async loading and rendering
+// const Posts = React.lazy(() => import('./Posts/Posts'));
+// import Suspence from React
+// <Route path='/posts' render={() => <Suspence fallback={<div>Loading...</div>}><Posts /></Suspence>} />
+
 const AsyncNewPost = asyncComponent(() => {
   // only importing this when './NewPost/NewPost' is needed
   return import('./NewPost/NewPost');

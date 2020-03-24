@@ -8,7 +8,14 @@ import './Blog.css';
 // Use NavLink to style links (and active links to style only links that are active)
 // Switch allows to only render one of the routes
 
+// You work with the react router by controlling the way you render its components.
+// If the route isn't rendered, you can't reac that route, the definition isn't rendered
+// so the component connected to it can't be loaded.
+
 class Blog extends Component {
+  state = {
+    auth: false
+  }
     render () {
         return (
             <div>
@@ -38,7 +45,7 @@ class Blog extends Component {
               {/* <Route path="/" exact render={() => <h1>Home</h1>}/>
                <Route path="/" render={() => <h1>Home 2</h1>}/> */}
                <Switch>
-                <Route path="/new-post" component={NewPost} />
+                {this.state.auth ? <Route path="/new-post" component={NewPost} /> : null}
                 <Route path="/posts" component={Posts} />
                 <Redirect from="/" to="/posts/" />
                 {/* <Route path="/" component={Posts} /> */}
